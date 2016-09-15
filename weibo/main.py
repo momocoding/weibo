@@ -36,7 +36,8 @@ def error404(e):
 if __name__ == '__main__':
 	config = {
 		port=80,
-		host='0.0.0.1'
-		debug=True
+		host='0.0.0.0'
+		debug=True,
+		threaded=True,
 	}
     app.run(**config)
