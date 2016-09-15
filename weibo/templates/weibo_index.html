@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>微博</title>
+    <!--<link rel="stylesheet" href="/static/css/pure-min.css">-->
+    <link rel="stylesheet" href="/static/css/weibo.css">
+    <link rel="stylesheet" href="/static/css/alertify.css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <script src="http://cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+    <script src="/static/js/alertify.min.js"></script>
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/weibo.js"></script>
+</head>
+<body>
+    <div id="header-bg" class="shadow">
+        <div id="header" class="">
+            <div class="left">
+                <img src="/static/images/logo.png" alt="">
+            </div>
+            <div class="left">
+                <h1>微博</h1>
+            </div>
+            <div class="right weibo-header-sub">
+                Hello, <span><a href={{ url_for("weibo.index", username=current) }}>{{ current }}</a></span>
+            </div>
+            <div class="right weibo-header-sub">
+                {% if current != '游客' %}
+
+                {% endif %}
+            </div>
+            <div class="right weibo-header-sub">
+                <a href={{ url_for("weibo.all") }}>所有瓜</a>
+            </div>
+        </div>
+    </div>
+    <div id="allcontainer">
+        <div class="clearfix"></div>
+        <div class="center clear-fix">
+            {% if current != '游客' %}
+                <textarea class="weibo-textarea-add shadow" name="content" id="weibo-input" cols="80" rows="5" placeholder=" Hello Weibo..."></textarea>
+                <button class="weibo-button-commit">发布微博</button>
+            {% endif %}
+
+            {% if current == '游客' %}
+            <button class="button-login right clear-fix">
+                <a href={{ url_for('user.login_view') }}> 登录</a>
+            </button>
+            <button class="button-login right clear-fix">
+                <a href={{ url_for('user.login_view') }}> 注册</a>
+            </button>
+            {% endif %}
+        </div>
+        <div class="content" >
+            <div class="weibo-sub-main">
+                {% for w in weibos %}
+                <div class="weibo-cell">
+                    <div class="weibo-sub-content shadow clear-fix">
+                        <div class="weibo-username left clear-fix">
+                            <a href={{ url_for('weibo.index', username=w.user_id) }}>{{ w.user_id }}</a>
+                        </div>
+                        <div class="weibo-sub-content-info clear-fix right">
+                            <div class="left">
+                                {{ w.created_time }}
+                            </div>
+                            {% if status %}
+                            <div class="left">
+                                <button data-id="{{ w.id }}" class="delete-button ">删除</button>
+                            </div>
+                            <div class="left">
+                                <button data-id="{{ w.id }}" class="update-button ">更新</button>
+                            </div>
+                            {% endif %}
+                            <div class="left">
+                                <button data-id="{{ w.id }}" class="comment-button ">评论</button>
+                            </div>
+                        </div>
+                        <div class="clear-fix line"></div>
+                        <div class="left sub-content-left">
+                            <span >
+                                {{ w.content }}
+                            </span>
+                        </div>
+                        <div class="right comment-counter">
+
+                        </div>
+                    </div>
+                    {% if status %}
+                    <div class="hide weibo-update clear-fix" id="td-{{ w.id }}-update">
+                        <div class="left" id="update-td">
+                            <input class="weibo-input-update" type="text" name="update" placeholder=" 更新...">
+                        </div>
+                        <div class="right">
+                            <button data-id="{{ w.id }}" class="weibo-button-update ">修改微博</button>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="hide weibo-comment " id="td-{{ w.id }}-comment">
+                        <div class="weibo-comment-content">
+                            {% for c in w.comments %}
+                            <div class="weibo-sub-comment clear-fix">
+                                <div class="weibo-comment-counter left"></div>
+                                <div class="weibo-username left">
+                                    {{ c.user_id }}:
+                                </div>
+                                <div class="right">
+                                    {{ c.created_time }}
+                                </div>
+                                <div class="left comment-sub-content">
+                                    {{ c.content}}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="sub-comment-new clear-fix">
+                            <div class="left" id="comment-td">
+                                {% if current != '游客' %}
+                                <input type="hidden" class="add-comment-id" name="weibo_id" value={{ w.id }}>
+                                <input type="text" class="add-comment-content" name="content" placeholder=" 评论...">
+                                {% else %}
+                                <input type="hidden" class="add-comment-id" name="weibo_id" value={{ w.id }}>
+                                <input type="text" class="add-comment-content" name="content" placeholder=" 请登录后评论...">
+                                {% endif %}
+                            </div>
+                            <div class="right ">
+                                <button class="button_comment">评论微博</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    </div>
+</body>
+</html>

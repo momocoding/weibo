@@ -1,0 +1,50 @@
+#allcontainer {
+    margin: 0px auto;
+    width: 400px;
+    color: #8899a6;
+}
+.clear-fix::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+#header {
+    color: #8899a6;
+}
+#header h1 {
+    color: #2196f3;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.left {
+    float: left;
+    margin: 0px 5px;
+}
+.right{
+    float: right;
+}
+.center {
+    text-align: center;
+    /*border: 1px solid gainsboro;*/
+}
+input {
+    color: darkgray;
+    height: 30px;
+    width: 310px;
+    border-radius: 5px;
+    margin: 4px 8px;
+    border: 1px solid gainsboro;
+    box-shadow: 1px 2px #deebf5;
+}
+button {
+    font-size: 15px;
+    border: none;
+    color: white;
+    width: 90px;
+    height: 30px;
+    background: #aedcf9;
+    border-radius: 5px;
+    margin-right: 43px;
+    margin-bottom: 15px;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册/登录</title>
+    <link rel="stylesheet" href="/static/css/user.css">
+</head>
+<body>
+<div id="allcontainer">
+    <div id="header" class="clear-fix">
+        <div class="left">
+            <img src="/static/images/logo.png" alt="">
+        </div>
+        <div class="left">
+            <h1>微博</h1>
+        </div>
+    </div>
+    <div class="center clear-fix">
+        <form action="/user/register" method="post">
+            <input name="username" placeholder=" 请输入用户名...">
+            <br>
+            <input name="password" placeholder=" 请输入密码...">
+            <br>
+            <div class="right clear-fix">
+                <button>注册</button>
+            </div>
+        </form>
+        <br>
+        <form action="/user/login" method="post">
+            <input name="username" placeholder=" 请输入用户名...">
+            <br>
+            <input name="password" placeholder=" 请输入密码...">
+            <br>
+            <div class="right clear-fix">
+                <button>登录</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
