@@ -62,6 +62,9 @@ button {
     width: 60px;
     border-radius: 3px;
 }
+.button-login a:hover {
+    background: #8ed1fb;
+}
 a, a:hover {
     text-decoration: none;
     color: #8899a6;
