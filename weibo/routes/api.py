@@ -24,64 +24,65 @@ def current_user():
         return u
 
 
+def response(success, data=None, message=''):
+    r = dict(
+        success=success,
+        data=data,
+        message=message,
+    )
+    return json.dumps(r, ensure_ascii=False)
+
+
 @main.route('/weibo/update/<int:weibo_id>', methods=['POST'])
-def update(weibo_id):
+def weibo_update(weibo_id):
     content = request.form.get('content', '')
-    print('content', content)
     w = Weibo.query.get(weibo_id)
     w.content = content
     if w.valid():
         w.save()
-        r = w.success_response()
-        r['message'] = '更新成功'
+        r = response(True, data=w.to_dict(), message='更新成功')
     else:
-        r = w.error_response()
-    return json.dumps(r, ensure_ascii=False)
+        message = w.valid_len()
+        r = response(False, message=message)
+    return r
 
 
 @main.route('/comment/add', methods=['POST'])
 def comment_add():
     u = current_user()
-    print('1111')
     if u is None:
-        r = dict(
-            success=302,
-            message='请登录之后评论',
-        )
-        return json.dumps(r, ensure_ascii=False)
+        r = response(302, message='请登录之后评论')
     else:
         form = request.form
         c = Comment(form)
         c.user_id = u.username
         if c.valid():
             c.save()
-            r = c.success_response()
+            r = response(True, data=c.to_dict(), message='评论成功')
         else:
-            r = c.error_response()
-        print('33333')
-        return json.dumps(r, ensure_ascii=False)
+            message = c.valid_len()
+            r = response(False, message=message)
+    return r
 
 
 @main.route('/weibo/add', methods=['POST'])
-def add():
+def weibo_add():
     u = current_user()
     form = request.form
     w = Weibo(form)
     w.user_id = u.username
     if w.valid():
         w.save()
-        r = w.success_response()
+        r = response(True, data=w.to_dict(), message='发布成功')
     else:
-        r = w.error_response()
-    return json.dumps(r, ensure_ascii=False)
+        message = w.valid_len()
+        r = response(False, message=message)
+    return r
 
 
 @main.route('/weibo/delete/<int:weibo_id>')
-def delete(weibo_id):
+def weibo_delete(weibo_id):
     w = Weibo.query.get(weibo_id)
     w.delete()
-    r = dict(
-        success=True,
-        message='删除成功',
-    )
-    return json.dumps(r, ensure_ascii=False)
+    r = response(True, message='删除成功')
+    return r

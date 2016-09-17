@@ -117,24 +117,12 @@ class Weibo(db.Model, ModelHelper):
         }
         return d
 
-    def success_response(self):
-        r = dict(
-            success=True,
-            message='发布成功',
-            data=self.to_dict()
-        )
-        return r
-
-    def error_response(self):
+    def valid_len(self):
         if len(self.content) == 0:
             message = '微博不能为空'
         else:
             message = '微博不能超过140个字'
-        r = dict(
-            success=False,
-            message=message,
-        )
-        return r
+        return message
 
 
 class Comment(db.Model, ModelHelper):
@@ -167,24 +155,13 @@ class Comment(db.Model, ModelHelper):
         }
         return d
 
-    def success_response(self):
-        r = dict(
-            success=True,
-            message='评论成功',
-            data=self.to_dict()
-        )
-        return r
-
-    def error_response(self):
+    def valid_len(self):
         if len(self.content) == 0:
             message = '评论不能为空'
         else:
             message = '评论不能超过40字'
-        r = dict(
-            success=False,
-            message=message,
-        )
-        return r
+        return message
+
 
 if __name__ == '__main__':
     # 先 drop_all 删除所有数据库中的表
