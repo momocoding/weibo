@@ -81,14 +81,14 @@ $(document).ready(function(){
         console.log(arguments)
     }
 
-    $(".weibo-sub-main").on('click', '.comment-button',function(){
+    var slideCommentButton = $(".weibo-sub-main").on('click', '.comment-button',function(){
         var weiboId = $(this).data('id')
         var selector = '#td-' + weiboId + '-comment'
         var div = $(selector)
         div.slideToggle();
     })
 
-    $('.weibo-sub-main').on('click', '.update-button', function(){
+    var slideUpdateButton = $('.weibo-sub-main').on('click', '.update-button', function(){
         var weiboId = $(this).data('id')
         var selector = '#td-' + weiboId + '-update'
         var div = $(selector)
@@ -106,8 +106,8 @@ $(document).ready(function(){
         var button = $(this)
         var parent = button.parent().parent()
         var weibo_id = parent.find('.add-comment-id').val()
-        var content = parent.find('.add-comment-content').val()
-        log(weibo_id,'weibo_id', content, 'content')
+        var input = parent.find('.add-comment-content')
+        var content = input.val()
         var weibo = {
             'weibo_id': weibo_id,
             'content': content
@@ -126,11 +126,13 @@ $(document).ready(function(){
             }
         }
         api.commentAdd(weibo, response)
+        input.val('')
     })
 
     // 添加微博 AJAX
     $('.weibo-button-commit').on('click', function(){
-        var content = $('.weibo-textarea-add').val()
+        var input = $('.weibo-textarea-add')
+        var content = input.val()
         var weibo = {
             'content': content
         }
@@ -145,6 +147,7 @@ $(document).ready(function(){
             }
         }
         api.weiboAdd(weibo, response)
+        input.val('')
     })
 
     // 删除微博 AJAX
@@ -166,8 +169,8 @@ $(document).ready(function(){
     // 更新微博 AJAX
     $('.weibo-sub-main').on('click','.weibo-button-update', function(){
         var weibo_id = $(this).data('id')
-        var content = $(this).parent().prevAll('#update-td').children('.weibo-input-update').val()
-        log(content,'content')
+        var input = $(this).parent().prevAll('#update-td').children('.weibo-input-update')
+        var content = input.val()
         var weibo = {
             content: content,
         }
@@ -188,5 +191,8 @@ $(document).ready(function(){
             }
         }
         api.weiboUpdate(url, weibo, response)
+        
+        input.val('')
+        $(this).closest('.weibo-update').slideUp()
     })
 })

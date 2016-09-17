@@ -61,6 +61,12 @@ button {
 a, a:hover {
     text-decoration: none;
     color: #8899a6;
+    padding: 4px 8px;
+    border-radius: 3px;
+}
+a:hover {
+    background: #57b1f9;
+    color: white;
 }
 .weibo-header-sub {
     height: 60px;
