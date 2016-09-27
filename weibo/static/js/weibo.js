@@ -120,9 +120,12 @@ $(document).ready(function(){
                 alertify.success(r.message)
                 input.val('')
             }else if(r.success == 302) {
-                window.location.href = '/'
                 alertify.success(r.message)
+<<<<<<< HEAD
                 
+=======
+                window.location.href = '/'
+>>>>>>> 2eb068d784e862c142787aaf4303cada7c0963d1
             }else {
                 alertify.error(r.message)
             }
