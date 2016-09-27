@@ -121,11 +121,7 @@ $(document).ready(function(){
                 input.val('')
             }else if(r.success == 302) {
                 alertify.success(r.message)
-<<<<<<< HEAD
-                
-=======
                 window.location.href = '/'
->>>>>>> 2eb068d784e862c142787aaf4303cada7c0963d1
             }else {
                 alertify.error(r.message)
             }
