@@ -118,15 +118,16 @@ $(document).ready(function(){
                 var div = parent.parent().children('.weibo-comment-content')
                 div.append(commentAddTemplate(c))
                 alertify.success(r.message)
+                input.val('')
             }else if(r.success == 302) {
                 window.location.href = '/'
                 alertify.success(r.message)
+                
             }else {
                 alertify.error(r.message)
             }
         }
         api.commentAdd(weibo, response)
-        input.val('')
     })
 
     // 添加微博 AJAX
@@ -142,12 +143,12 @@ $(document).ready(function(){
                 var div = $('.weibo-sub-main')
                 div.prepend(weiboAddTemplate(w))
                 alertify.success(r.message)
+                input.val('')
             }else {
                 alertify.error(r.message)
             }
         }
         api.weiboAdd(weibo, response)
-        input.val('')
     })
 
     // 删除微博 AJAX
@@ -186,13 +187,12 @@ $(document).ready(function(){
                 log('content', content)
                 div.html(content)
                 alertify.success(r.message)
+                input.val('')
+                $(this).closest('.weibo-update').slideUp()
             }else {
                 alertify.error(r.message)
             }
         }
         api.weiboUpdate(url, weibo, response)
-        
-        input.val('')
-        $(this).closest('.weibo-update').slideUp()
     })
 })

@@ -1,0 +1,19 @@
+diff a/weibo/static/js/weibo.js b/weibo/static/js/weibo.js	(rejected hunks)
+@@ -118,15 +118,15 @@
+                 var div = parent.parent().children('.weibo-comment-content')
+                 div.append(commentAddTemplate(c))
+                 alertify.success(r.message)
++                input.val('')
+             }else if(r.success == 302) {
+-                window.location.href = '/'
+                 alertify.success(r.message)
++                window.location.href = '/'
+             }else {
+                 alertify.error(r.message)
+             }
+         }
+         api.commentAdd(weibo, response)
+-        input.val('')
+     })
+ 
+     // 添加微博 AJAX
